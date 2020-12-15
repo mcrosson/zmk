@@ -16,6 +16,7 @@
     "yzhang.markdown-all-in-one",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
+    "trond-snekvik.kconfig-lang",
     "eamodio.gitlens"
   ],
   "settings": {
