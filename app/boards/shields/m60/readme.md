@@ -1,4 +1,4 @@
-# [Makerdiary M60](https://wiki.makerdiary.com/m60)
+# Makerdiary M60
 
 A 60% ANSI keyboard designed and manufactured by Makerdiary.
 http://makerdiary.com
