@@ -6,3 +6,11 @@ description: RGB Underglow Action
 compatible: "zmk,behavior-rgb-underglow"
 
 include: two_param.yaml
+
+activate-behavior-cells:
+  - param1
+  - param2
+
+deactivate-behavior-cells:
+  - param1
+  - param2

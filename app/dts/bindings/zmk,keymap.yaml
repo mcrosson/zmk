@@ -16,3 +16,9 @@ child-binding:
     sensor-bindings:
       type: phandle-array
       required: false
+    activate-behaviors:
+      type: phandle-array
+      required: false
+    deactivate-behaviors:
+      type: phandle-array
+      required: false

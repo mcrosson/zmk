@@ -10,6 +10,8 @@
 			compatible = "zmk,behavior-rgb-underglow";
 			label = "RGB_UNDERGLOW";
 			#binding-cells = <2>;
+			#activate-behavior-cells = <2>;
+			#deactivate-behavior-cells = <2>;
 		};
 	};
 };
