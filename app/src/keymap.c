@@ -59,6 +59,12 @@ static uint8_t _zmk_keymap_layer_default = 0;
 
 #endif /* ZMK_KEYMAP_HAS_SENSORS */
 
+#if ZMK_KEYMAP_HAS_ACTIVATE_BEHAVIORS
+#endif /* ZMK_KEYMAP_HAS_ACTIVATE_BEHAVIORS */
+
+#if ZMK_KEYMAP_HAS_DEACTIVATE_BEHAVIORS
+#endif /* ZMK_KEYMAP_HAS_DEACTIVATE_BEHAVIORS */
+
 #define LAYER_LABEL(node) COND_CODE_0(DT_NODE_HAS_PROP(node, label), (NULL), (DT_LABEL(node))),
 
 // State
