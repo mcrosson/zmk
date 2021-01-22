@@ -56,12 +56,12 @@ int zmk_widget_wpm_status_init(struct zmk_widget_wpm_status *widget, lv_obj_t *p
 
 lv_obj_t *zmk_widget_wpm_status_obj(struct zmk_widget_wpm_status *widget) { return widget->obj; }
 
-int wpm_status_listener(const struct zmk_event_header *eh) {
-    struct wpm_state_changed *ev = cast_wpm_state_changed(eh);
+int wpm_status_listener(const zmk_event_t *eh) {
+    struct zmk_wpm_state_changed *ev = as_zmk_wpm_state_changed(eh);
     struct zmk_widget_wpm_status *widget;
     SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { set_wpm_symbol(widget->obj, ev->state); }
     return 0;
 }
 
 ZMK_LISTENER(widget_wpm_status, wpm_status_listener)
-ZMK_SUBSCRIPTION(widget_wpm_status, wpm_state_changed);
+ZMK_SUBSCRIPTION(widget_wpm_status, zmk_wpm_state_changed);
