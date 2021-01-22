@@ -166,6 +166,8 @@ struct zmk_hid_consumer_report {
     struct zmk_hid_consumer_report_body body;
 } __packed;
 
+zmk_mod_flags_t zmk_hid_get_mods();
+zmk_mod_flags_t zmk_hid_get_all_mods();
 int zmk_hid_register_mod(zmk_mod_t modifier);
 int zmk_hid_unregister_mod(zmk_mod_t modifier);
 int zmk_hid_implicit_modifiers_press(zmk_mod_flags_t implicit_modifiers);
