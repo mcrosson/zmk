@@ -13,6 +13,7 @@
 #include <settings/settings.h>
 #include <drivers/gpio.h>
 #include <drivers/ext_power.h>
+#include <zmk/events/ext_power_generic_state_changed.h>
 
 #if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
 
@@ -67,6 +68,10 @@ static int ext_power_generic_enable(const struct device *dev) {
         return -EIO;
     }
     data->status = true;
+    
+    ZMK_EVENT_RAISE(new_zmk_ext_power_generic_state_changed(
+        (struct zmk_ext_power_generic_state_changed){.state = true}));
+
     return ext_power_save_state();
 }
 
@@ -79,6 +84,10 @@ static int ext_power_generic_disable(const struct device *dev) {
         return -EIO;
     }
     data->status = false;
+
+    ZMK_EVENT_RAISE(new_zmk_ext_power_generic_state_changed(
+        (struct zmk_ext_power_generic_state_changed){.state = false}));
+
     return ext_power_save_state();
 }
 

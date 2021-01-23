@@ -16,6 +16,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <zmk/event_manager.h>
 #include <zmk/events/activity_state_changed.h>
+#include <zmk/events/ext_power_generic_state_changed.h>
 #include <zmk/display/status_screen.h>
 
 #define ZMK_DISPLAY_NAME CONFIG_LVGL_DISPLAY_DEV_NAME
@@ -76,25 +77,42 @@ int zmk_display_init() {
 }
 
 int display_event_handler(const zmk_event_t *eh) {
-    struct zmk_activity_state_changed *ev = as_zmk_activity_state_changed(eh);
-    if (ev == NULL) {
-        return -ENOTSUP;
+    struct zmk_activity_state_changed *activity_ev;
+    if ((activity_ev = as_zmk_activity_state_changed(eh)) != NULL) {
+        switch (activity_ev->state) {
+        case ZMK_ACTIVITY_ACTIVE:
+            start_display_updates();
+            break;
+        case ZMK_ACTIVITY_IDLE:
+        case ZMK_ACTIVITY_SLEEP:
+            stop_display_updates();
+            break;
+        default:
+            LOG_WRN("Unhandled activity state: %d", activity_ev->state);
+            return -EINVAL;
+        }
+        return 0;
     }
 
-    switch (ev->state) {
-    case ZMK_ACTIVITY_ACTIVE:
-        start_display_updates();
-        break;
-    case ZMK_ACTIVITY_IDLE:
-    case ZMK_ACTIVITY_SLEEP:
-        stop_display_updates();
-        break;
-    default:
-        LOG_WRN("Unhandled activity state: %d", ev->state);
-        return -EINVAL;
+#if IS_ENABLED(CONFIG_ZMK_EXT_POWER)
+    struct zmk_ext_power_generic_state_changed *power_ev;
+    // This event can happen prior to the display init ; ensure check for display!=NULL to avoid lock up on start
+    if ((power_ev = as_zmk_ext_power_generic_state_changed(eh)) != NULL && display != NULL) {
+        LOG_DBG("Display power event with state %i", power_ev->state);
+        // Only need to check if the state is 'on' as 'off' will just cut power to the display
+        if (power_ev->state == 1) {
+            LOG_DBG("Power On: Reinitializing display");
+            zmk_display_init();
+        }
+
+        return 0;
     }
-    return 0;
+#endif // IS_ENABLED(CONFIG_ZMK_EXT_POWER)
+
+    return -ENOTSUP;
 }
+
 
 ZMK_LISTENER(display, display_event_handler);
 ZMK_SUBSCRIPTION(display, zmk_activity_state_changed);
+ZMK_SUBSCRIPTION(display, zmk_ext_power_generic_state_changed);
