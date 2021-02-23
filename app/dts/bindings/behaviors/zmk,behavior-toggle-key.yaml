@@ -1,0 +1,13 @@
+# Copyright (c) 2020 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+description: Toggle key behavior
+
+compatible: "zmk,behavior-toggle-key"
+
+include: one_param.yaml
+
+properties:
+  bindings:
+    type: phandles
+    required: true
