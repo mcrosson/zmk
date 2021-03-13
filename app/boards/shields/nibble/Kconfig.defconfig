@@ -1,7 +1,7 @@
-# Copyright (c) 2020 The ZMK Contributors
+# Copyright (c) 2021 The ZMK Contributors
 # SPDX-License-Identifier: MIT
 
-if SHIELD_NIBBLE
+if SHIELD_NIBBLE || SHIELD_NIBBLE_ISO
 
 config ZMK_KEYBOARD_NAME
 	default "NIBBLE"

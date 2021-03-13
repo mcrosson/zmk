@@ -2,6 +2,10 @@
 
 Some general notes/commands for building standard nibble layouts from the assembly documentation.
 
+## ANSI vs ISO
+
+There are two shield options available: `nibble` and `nibble_iso`. Please use the appropriate shield name if you want ANSI or ISO.
+
 ## LED Notes
 
 If you built your nibble without the LEDs _and_ are using a nice!nano board, you'll need to change the following in your local nibble config or add them to the end of the file.

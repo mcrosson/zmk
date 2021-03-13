@@ -4,4 +4,5 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "nibble.dtsi"
+#define LAYOUT_ISO 1
+#include "nibble.keymap"

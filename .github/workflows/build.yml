@@ -47,6 +47,7 @@ jobs:
           - microdox_left
           - microdox_right
           - nibble
+          - nibble_iso
           - qaz
           - quefrency_left
           - quefrency_right

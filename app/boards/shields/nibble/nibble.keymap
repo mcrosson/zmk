@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
+ * Copyright (c) 2021 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
  */
@@ -16,9 +16,23 @@
 
 	keymap {
 		compatible = "zmk,keymap";
+#if defined LAYOUT_ISO
+		iso_layer {
+			label = "ISO";
 
+			sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
+
+			bindings = <
+            &kp ESC   &kp N1          &kp N2    &kp N3    &kp N4    &kp N5    &kp N6    &kp N7    &kp N8  &kp N9    &kp N0    &kp MINUS &kp EQUAL &kp BSPC        &kp HOME
+&kp C_MUTE  &kp TAB   &kp Q           &kp W     &kp E     &kp R     &kp T     &kp Y     &kp U     &kp I   &kp O     &kp P     &kp LBKT  &kp RBKT  &kp ENTER       &kp DEL
+&trans      &kp CLCK  &kp A           &kp S     &kp D     &kp F     &kp G     &kp H     &kp J     &kp K   &kp L     &kp SEMI  &kp SQT             &kp NON_US_HASH &kp PG_UP
+&trans      &kp LSHFT &kp NON_US_BSLH &kp Z     &kp X     &kp C     &kp V     &kp B     &kp N     &kp M   &kp COMMA &kp DOT   &kp FSLH  &kp RSHFT &kp UP          &kp PG_DN
+&trans      &kp LCTRL &kp LGUI        &kp LALT                      &kp SPACE                     &mo 1   &kp RALT  &kp RCTRL &kp LEFT            &kp DOWN        &kp RIGHT
+			>;
+		};
+#else
 		default_layer {
-			label = "Default";
+			label = "ANSI";
 
 			sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
 
@@ -30,6 +44,7 @@
 &trans      &kp LCTRL &kp LGUI  &kp LALT                      &kp SPACE                     &mo 1   &kp RALT  &kp RCTRL &kp LEFT            &kp DOWN &kp RIGHT
 			>;
 		};
+#endif
 		function_layer {
 			label = "Function";
 			
